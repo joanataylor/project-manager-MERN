@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-function ProjectForm() {
+function ProductForm({ setLoaded }) {
   const [item, setItem] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
@@ -9,16 +9,21 @@ function ProjectForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newItem = {
-      item
+      item,
+      price,
+      description,
     };
     axios
-      .post('http://localhost:5002/api/projects', newItem)
-      .then(res => console.log(res.data))
-      .catch(err => console.log(err));
-  }
+      .post("http://localhost:5002/api/products", newItem)
+      .then((res) => {
+        console.log(res.data)
+        setLoaded (false)
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
-    <div className="card">
+    <div className="card mb-3">
       <div className="card-body">
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
@@ -71,4 +76,4 @@ function ProjectForm() {
   );
 }
 
-export default ProjectForm;
+export default ProductForm;

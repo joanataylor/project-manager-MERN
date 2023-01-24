@@ -11,8 +11,8 @@ app.use(cors(), express.json());
 const connectDb = require('./config/mongoose.config')
 connectDb()
 // require('./server/routes/person.routes')(app) <- another version
-const projectRouter = require("./routes/project.routes");
-app.use("/api", projectRouter);
+const productRouter = require("./routes/product.routes");
+app.use("/api", productRouter);
 
 // const port = 8000;
 const port = process.env.PORT || 8000;

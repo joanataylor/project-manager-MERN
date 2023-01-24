@@ -6,10 +6,21 @@ function ProjectForm() {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newItem = {
+      item
+    };
+    axios
+      .post('http://localhost:5002/api/projects', newItem)
+      .then(res => console.log(res.data))
+      .catch(err => console.log(err));
+  }
+
   return (
     <div className="card">
       <div className="card-body">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="item" className="form-label">
               Item:

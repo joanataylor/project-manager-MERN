@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 function ProductDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
@@ -18,7 +19,17 @@ function ProductDetail() {
       })
       .catch((err) => console.log(err));
     return () => controller.abort();
-  }, []);
+  }, [id]);
+
+  const handleDelete = (id) => {
+    axios
+      .delete(`http://localhost:5002/api/products/${id}`)
+      .then((res) => {
+        console.log(res.data);
+        navigate('/products')
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div>
@@ -33,8 +44,15 @@ function ProductDetail() {
           <div className="card-footer d-flex justify-content-end">
             <Link
               to={`/products/${product._id}/edit`}
-              className="btn btn-warning"
-            >Edit</Link>
+              className="btn btn-warning me-2">
+              Edit{" "}
+            </Link>
+            <button
+                className="btn btn-danger me-2"
+                onClick={() => handleDelete(product._id)}
+              >
+                Delete
+              </button>
           </div>
         </div>
       )}

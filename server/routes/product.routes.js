@@ -1,6 +1,6 @@
 // const PersonController = require('../controllers/person.controller');
 
-const { create, findAll, findOne, updateOne } = require("../controllers/product.controller");
+const { create, findAll, findOne, updateOne, deleteOne  } = require("../controllers/product.controller");
 
 const express = require("express");
 // const { findOne } = require("../models/product.model");
@@ -21,6 +21,7 @@ productRouter
 productRouter
   .route("/products/:id")
   .get(findOne)
-  .put(updateOne);
+  .put(updateOne)
+  .delete(deleteOne);
 
 module.exports = productRouter;

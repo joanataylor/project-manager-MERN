@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 function ProductDetail() {
@@ -29,6 +29,12 @@ function ProductDetail() {
             <h5 className="card-title">{product.item}</h5>
             <p>{product.price}</p>
             <p>{product.description}</p>
+          </div>
+          <div className="card-footer d-flex justify-content-end">
+            <Link
+              to={`/products/${product._id}/edit`}
+              className="btn btn-warning"
+            >Edit</Link>
           </div>
         </div>
       )}

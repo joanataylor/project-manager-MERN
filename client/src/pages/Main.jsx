@@ -29,7 +29,7 @@ function Main() {
 
       {/* {message && <h2>Message: {message}</h2>} */}
       <ProductForm setLoaded = { setLoaded } />
-      {products && <ProductList products={products} />}
+      {loaded && <ProductList products={products} setLoaded = {setLoaded} />}
     </div>
   );
 }

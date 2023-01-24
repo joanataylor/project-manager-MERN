@@ -1,6 +1,21 @@
 import { Link } from "react-router-dom";
+import axios from 'axios'
+// import { useParams } from 'react-router-dom'
 
-function ProductList({ products }) {
+function ProductList({ products, setLoaded }) {
+  // const { id } = useParams();
+
+  // const handleCheck = (e, id) => {
+  //   axios
+  //     .put(`http://localhost:5002/api/products/${id}`)
+  //     .then(res => {
+  //       console.log(res.data);
+  //       //something here
+  //       setLoaded(false);
+  //     })
+  //     .catch(err => console.log(err));
+  // };
+
   return (
     products &&
     products.map((product) => {

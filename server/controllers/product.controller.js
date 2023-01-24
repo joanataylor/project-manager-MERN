@@ -24,4 +24,12 @@ const findOne =(req, res) => {
     .catch(err => res.status(400).json(err));
 }
 
-module.exports = { create, findAll, findOne };
+const updateOne =(req, res) => {
+  const { id } = req.params;
+
+  Product.findByIdAndUpdate(id, req.body)
+    .then(product => res.status(201).json(product))
+    .catch(err => res.status(400).json(err));
+}
+
+module.exports = { create, findAll, findOne, updateOne };

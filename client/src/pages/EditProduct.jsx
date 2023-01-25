@@ -10,6 +10,7 @@ function EditProduct() {
     price: "",
     description: "",
   });
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     const controller = new AbortController();
@@ -36,66 +37,87 @@ function EditProduct() {
     e.preventDefault();
 
     axios
-      .put(`http://localhost:5002/api/products/${id}`,{
+      .put(`http://localhost:5002/api/products/${id}`, {
         item: product.item,
         price: product.price,
         description: product.description,
       })
       .then((res) => {
         console.log(res.data);
+        // setErrors({})
         navigate("/products");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setErrors(err.response.data.errors);
+      });
   };
 
   return (
-    <div>
-      <h1>Edit Todo</h1>
-      <div className="card">
-        <div className="card-body">
-          <form onSubmit={handleSubmit}>
+    <div className="card mb-3">
+      <div className="card-body">
+        <h1>Edit Todo</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label htmlFor="item" className="form-label">
+              Item:
+            </label>
+            <input
+              type="text"
+              name="item"
+              id="item"
+              className="form-control"
+              value={product.item}
+              onChange={handleChange}
+            />
+            {errors?.item && (
+              <span className="form-text tect-danger">
+                {errors.item.message}
+              </span>
+            )}
+          </div>
+          <div className="mb-3">
+            <label htmlFor="price" className="form-label">
+              Price:
+            </label>
+            <input
+              type="number"
+              name="price"
+              id="price"
+              className="form-control"
+              value={product.price}
+              onChange={handleChange}
+            />
+            {errors?.price && (
+              <span className="form-text tect-danger">
+                {errors.price.message}
+              </span>
+            )}
+            </div>
             <div className="mb-3">
-              <label htmlFor="item" className="form-label">
-                Item:
-              </label>
-              <input
-                type="text"
-                name="item"
-                id="item"
-                className="form-control"
-                value={product.item}
-                onChange={handleChange}
-              />
-              <label htmlFor="price" className="form-label">
-                Price:
-              </label>
-              <input
-                type="number"
-                name="price"
-                id="price"
-                className="form-control"
-                value={product.price}
-                onChange={handleChange}
-              />
-              <label htmlFor="item" className="form-label">
-                Description:
-              </label>
-              <input
-                type="text"
-                name="description"
-                id="description"
-                className="form-control"
-                value={product.description}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="d-flex justify-content-end">
-              <button type="submit" className="btn btn-primary">
-                Update Product
-              </button>
-            </div>
-          </form>
-        </div>
+            <label htmlFor="item" className="form-label">
+              Description:
+            </label>
+            <input
+              type="text"
+              name="description"
+              id="description"
+              className="form-control"
+              value={product.description}
+              onChange={handleChange}
+            />
+            {errors?.description && (
+              <span className="form-text tect-danger">
+                {errors.description.message}
+              </span>
+            )}
+          </div>
+          <div className="d-flex justify-content-end">
+            <button type="submit" className="btn btn-primary">
+              Update Product
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

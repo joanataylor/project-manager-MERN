@@ -5,6 +5,7 @@ function ProductForm({ setLoaded }) {
   const [item, setItem] = useState("");
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,11 +17,15 @@ function ProductForm({ setLoaded }) {
     axios
       .post("http://localhost:5002/api/products", newItem)
       .then((res) => {
-        console.log(res.data)
-        setLoaded (false)
+        console.log(res.data);
+        setErrors({})
+        setLoaded (false);
       })
-      .catch((err) => console.log(err));
-  };
+      .catch((err) => {
+        console.log(err)
+        setErrors(err.response.data.errors);
+  });
+};
 
   return (
     <div className="card mb-3">
@@ -38,6 +43,9 @@ function ProductForm({ setLoaded }) {
               value={item}
               onChange={(e) => setItem(e.target.value)}
             />
+            { errors?.item && (
+              <span className="form-text tect-danger">{errors.item.message}</span>
+              )}
           </div>
           <div className="mb-3">
             <label htmlFor="price" className="form-label">
@@ -51,6 +59,10 @@ function ProductForm({ setLoaded }) {
               value={price}
               onChange={(e) => setPrice(e.target.value)}
             />
+            {/* optional chaining operator ---> ?  */}
+            { errors?.price && (
+              <span className="form-text tect-danger">{errors.price.message}</span>
+              )}
           </div>
           <div className="mb-3">
             <label htmlFor="description" className="form-label">
@@ -64,6 +76,9 @@ function ProductForm({ setLoaded }) {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
+            { errors?.description && (
+              <span className="form-text tect-danger">{errors.description.message}</span>
+              )}
           </div>
           <div className="d-flex justify-content-end">
             <button type="submit" className="btn btn-primary">

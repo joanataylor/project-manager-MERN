@@ -40,6 +40,7 @@ function ProductDetail() {
             <h5 className="card-title">{product.item}</h5>
             <p>{product.price}</p>
             <p>{product.description}</p>
+            <p>{ product.isComplete ? 'Completed.' : 'Not Completed.'}</p>
           </div>
           <div className="card-footer d-flex justify-content-end">
             <Link

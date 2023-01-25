@@ -9,6 +9,7 @@ function EditProduct() {
     item: "",
     price: "",
     description: "",
+    isComplete: false,
   });
   const [errors, setErrors] = useState({});
 
@@ -33,6 +34,13 @@ function EditProduct() {
     });
   };
 
+  const handleCheck = (e) => {
+    setProduct({
+      ...product,
+      isComplete: e.target.checked,
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -41,6 +49,7 @@ function EditProduct() {
         item: product.item,
         price: product.price,
         description: product.description,
+        isComplete: product.isComplete,
       })
       .then((res) => {
         console.log(res.data);
@@ -94,6 +103,7 @@ function EditProduct() {
               </span>
             )}
             </div>
+
             <div className="mb-3">
             <label htmlFor="item" className="form-label">
               Description:
@@ -112,6 +122,21 @@ function EditProduct() {
               </span>
             )}
           </div>
+
+          <div className="form-check mb-3">
+              <input
+                type="checkbox"
+                name="isComplete"
+                id="isComplete"
+                className="form-check-input"
+                checked={product.isComplete}
+                onChange={handleCheck}
+              />
+              <label htmlFor="isComplete" className="form-check-label">
+                Completed?
+              </label>
+            </div>
+
           <div className="d-flex justify-content-end">
             <button type="submit" className="btn btn-primary">
               Update Product

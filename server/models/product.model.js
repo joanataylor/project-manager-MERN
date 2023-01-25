@@ -4,16 +4,17 @@ const productSchema = new mongoose.Schema(
   {
     item: {
       type: String,
-      required: [true, 'Product is required']
+      required: [true, 'Item is required']
     },
     price: {
-      type: String,
+      type: Number,
       required: [true, 'Price is required']
     },
     description: {
       type: String,
       required: [true, 'Description is required']
     },
+    isComplete: Boolean,
   },
   { timestamps: true }
 );
